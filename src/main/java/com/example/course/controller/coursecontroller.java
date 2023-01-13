@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.User.Entity.User;
 import com.example.course.Entity.Course;
 import com.example.course.Service.Courseservice;
-import com.example.derepo.Entity.User;
 
 
 

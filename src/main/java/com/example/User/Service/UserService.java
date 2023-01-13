@@ -1,15 +1,15 @@
-package com.example.derepo.Service;
-
-import com.example.derepo.DTO.UserDTO;
-import com.example.derepo.Entity.User;
-import com.example.derepo.Repository.UserRepository;
-import com.example.derepo.UserRepository_2.UserRepo_2;
+package com.example.User.Service;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.User.DTO.UserDTO;
+import com.example.User.Entity.User;
+import com.example.User.Repository.UserRepository;
+import com.example.User.UserRepository_2.UserRepo_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,55 +19,49 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserService {
-    /*List <UserDTO> list=new ArrayList<>(Arrays.asList(new UserDTO(1,"Name_1","Address_1"), new UserDTO(2,"Name_2","Address_1"),new UserDTO(3,"Name_3","Address_3")
-    )) ; */
+    
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
     private UserRepo_2 userRepo_2;
-    /*public UserDTO saveUser(UserDTO userdto){
 
+    public UserDTO saveUser(UserDTO userdto){
         userRepository.save(modelMapper.map(userdto,User.class));
         return userdto;
-
     }
     public List<UserDTO> getUser(){
         List<User> list1=userRepository.findAll();
         return modelMapper.map(list1,new TypeToken<List<UserDTO>>(){}.getType());
     }
-    public List<UserDTO> getuser_fromlist(){
-        return list;
-    }
-    public UserDTO getuserbyid_fromlist(int id){
-
-        for (UserDTO i: list){
-            if(i.getId()==id){
-                return i;
+    public UserDTO getUserById(int id){
+        List<User> list=userRepository.findAll();
+        for(User user: list){
+            if(user.getId()==id){
+                return modelMapper.map(user, UserDTO.class);
             }
         }
         return null;
-       // return list.stream().filter(t ->t.getId()==id ).findFirst().get();
     }
-    public void changeuserbyid_fromlist(int id, UserDTO user){
-        for (UserDTO i:list){
-            if(i.getId()==id){
-                i.setId(user.getId());
-                i.setName(user.getName());
-                i.setAddress(user.getAddress());
+    public void putUser(int id,UserDTO userdto){
+        User updateuser=modelMapper.map(userdto, User.class);
+        Optional<User> userdtotoupdate=userRepository.findById(id);
+        userdtotoupdate.get().setId(updateuser.getId());
+        userdtotoupdate.get().setName(updateuser.getName());
+        userdtotoupdate.get().setAddress(updateuser.getAddress());   
+    }
+    public void deleteUserById(int id){
+        List<User> list=userRepository.findAll();
+        for (User user:list){
+            if(user.getId()==id){
+                user=null;
             }
         }
     }
-    public String deleteuserbyid_fromlist(int id){
-        
-        list.removeIf(t -> t.getId()==id);
-        return "Element having id of"+id+" have been removed"; 
-    }
-    public List<UserDTO> adduser_tolist(UserDTO user) {
-        list.add(user);
-        return list;
-    }*/
+ 
+    // Service methods without using DTO
+    /* 
     public void addall(User user){
         userRepo_2.save(user);
     }
@@ -87,6 +81,7 @@ public class UserService {
                 user2.setAddress(user.getAddress());
             }
        }*/
+       /* 
        for (User user3: userRepo_2.findAll()){
             if(user3.getId()==id){
                 userRepo_2.save(user);
@@ -100,4 +95,5 @@ public class UserService {
     public void delete_userbyid(int id) {
         userRepo_2.deleteById(id);
     }
+    */
 }

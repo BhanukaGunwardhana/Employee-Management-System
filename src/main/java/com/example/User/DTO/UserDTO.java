@@ -1,18 +1,13 @@
-package com.example.derepo.Entity;
+package com.example.User.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class User {
-    @Id
+public class UserDTO {
     private int id;
     private String name;
     private String address;

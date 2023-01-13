@@ -1,4 +1,4 @@
-package com.example.course.Entity;
+package com.example.User.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,9 +23,9 @@ public class Course {
     
     @ManyToOne
     private User user; 
-    public Course(int id,String name,int userid){
+    /*public Course(int id,String name,int userid){
         this.id=id;
         this.name=name;
         this.user=new User(userid,"","");
-    }
+    }*/
 }

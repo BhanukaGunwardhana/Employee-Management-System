@@ -1,10 +1,11 @@
-package com.example.derepo.Controller;
+package com.example.User.Controller;
 
-import com.example.derepo.DTO.UserDTO;
-import com.example.derepo.Entity.User;
-import com.example.derepo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.User.DTO.UserDTO;
+import com.example.User.Entity.User;
+import com.example.User.Service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,41 +16,40 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
-    /*@GetMapping("/getuser")
+    @GetMapping("/getuser")
+    // get full user details
     public List<UserDTO> getUser(){
         return  userService.getUser();
-       // return "demorepo_post";
+       
     }
     @PostMapping("/postuser")
+    // add user to the database
     public UserDTO postUser(@RequestBody UserDTO userDTO){
       return  userService.saveUser(userDTO);
-    //    return "demorepo_post";
+    
     }
-    @GetMapping("/getuserbyidfromlist/{id}")
-    /*public UserDTO getuserbyidfromlist(@PathVariable int id){
-     //int id=Integer.parseInt(id_);
-      return userService.getuserbyid_fromlist(id);
+    @GetMapping("/getuserbyid/{id}")
+    // get userdetails of a specific user  
+    public UserDTO getuserbyid(@PathVariable int id){
+      return userService.getUserById(id);
 
     }
-    @PutMapping ("/postuserbyidfromlist/{id}")
-    public String changeuserbyidfromlist(@PathVariable int id, @RequestBody UserDTO user){
-      //int intid=Integer.parseInt(id);
-      userService.changeuserbyid_fromlist(id, user);
+    @PutMapping ("/postuserbyid/{id}")
+    // update details of a specific user
+    public String changeuserbyid(@PathVariable int id, @RequestBody UserDTO user){
+      userService.putUser(id, user);
       return "User saving id successful";
 
     }
-    @GetMapping("/getuserfromlist")
-    public List<UserDTO> getuserfromlist(){
-      return userService.getuser_fromlist();
+    @DeleteMapping ("/deleteuser/{id}")
+    // delete specific user
+    public void removeuserbyid(@PathVariable int id){
+       userService.deleteUserById(id);
     }
-    @DeleteMapping ("/deleteuserfromlist/{id}")
-    public String removeuserbyidfromlist(@PathVariable int id){
-       return userService.deleteuserbyid_fromlist(id);
-    }
-    @PostMapping ("/addusertolist")
-    public List<UserDTO> addusertolist(@RequestBody UserDTO user){
-      return userService.adduser_tolist(user);
-    }*/
+    
+    
+    // controller methods without using DTO
+    /* 
     @GetMapping ("/derepo")
     public List<User> getalluser(){
       return userService.getall();
@@ -73,5 +73,5 @@ public class UserController {
       userService.delete_userbyid(id);
       return "user deleted";
     }
-
+    */
 }

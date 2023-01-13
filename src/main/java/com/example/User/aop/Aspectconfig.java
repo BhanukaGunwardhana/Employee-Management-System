@@ -1,4 +1,4 @@
-package com.example.derepo.aop;
+package com.example.User.aop;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.derepo.Exceptionhandler.EventHandleException;
+import com.example.User.Exceptionhandler.EventHandleException;
 @Component
 @Aspect
 //@Configuration
@@ -30,23 +30,6 @@ public class Aspectconfig {
     public void aspectservicemethod(){}
     
 
-     /*@Before(value="execution(* com.example.derepo.Controller.*.*(..))")
-    public void logstatementBefore(JoinPoint JointPoint){
-        log.info("Executing {}", JointPoint);
-    }
-    @After(value="execution(* com.example.derepo.Controller.*.*(..))")
-    public void logstatementAfetr(JoinPoint JoinPoint){
-        log.info("Completed execution{}", JoinPoint);
-    }
-    @Around (value="execution(* com.example.derepo.Controller.*.*(..))")
-    public void measureMethodExecutionTime(ProceedingJoinPoint jp) throws Throwable{
-        long start=System.nanoTime();
-        Object method=jp.proceed();
-        long end=System.nanoTime();
-        log.info("{}", jp);
-        log.info("Method execution time :"+TimeUnit.NANOSECONDS.toMillis(end-start));
-        
-    }*/
     @Around("aspectservicemethod()")
     public Object eventHandler(ProceedingJoinPoint jp) throws Throwable{
         try {

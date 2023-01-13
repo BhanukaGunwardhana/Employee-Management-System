@@ -1,4 +1,4 @@
-package com.example.derepo;
+package com.example.User;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

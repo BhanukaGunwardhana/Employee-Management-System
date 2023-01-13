@@ -1,4 +1,4 @@
-package com.example.derepo.Exceptionhandler;
+package com.example.User.Exceptionhandler;
 
 import org.modelmapper.internal.bytebuddy.implementation.bind.annotation.Super;
 import org.springframework.http.HttpStatus;
