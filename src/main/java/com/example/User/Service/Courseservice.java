@@ -40,10 +40,7 @@ public class Courseservice {
     }
 
     public void update_coursebyCourseidStudentid(int courseid,int studentid,CourseDTO coursedto) {
-        Course updatecourse=mapper.map(coursedto, Course.class);
-        Optional<Course> course= courserepo.findById(id);
-        course.get().setId(updatecourse.getId());
-        course.get().setName(updatecourse.getName());
+       
     }
 
     public List<CourseDTO> get_allcourse(int userid) {

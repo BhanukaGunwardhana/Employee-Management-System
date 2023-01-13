@@ -2,6 +2,7 @@ package com.example.User.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class Course {
     private String name;
     
     @ManyToOne
+    @JoinColumn(name = "id")
     private User user; 
     /*public Course(int id,String name,int userid){
         this.id=id;
