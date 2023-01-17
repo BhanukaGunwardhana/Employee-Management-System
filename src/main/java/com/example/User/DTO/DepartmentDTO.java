@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DepartmentCreatingDTO {
+public class DepartmentDTO {
  private int departmentId;
  private String DepartmentName;
- 
+
     
 }

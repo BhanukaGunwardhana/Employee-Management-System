@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.User.DTO.DepartmentCreatingDTO;
-import com.example.User.DTO.DepartmentRetrivingDTO;
+import com.example.User.DTO.DepartmentDTO;
 import com.example.User.DTO.UserCreationDTO;
 import com.example.User.DTO.UserDTO;
 import com.example.User.DTO.UserRetrievingDTO;
@@ -31,12 +30,12 @@ public class UserService {
     private ModelMapper modelMapper;
 
     //With DTO ManytoOne relation with department
-    public  DepartmentRetrivingDTO selectDepartmentByUserId(int id){
+    public  DepartmentDTO selectDepartmentByUserId(int id){
         Optional<User> opuser =userRepository.findById(id);
         User user=opuser.get();
-        return(modelMapper.map(user.getDepartment(), DepartmentRetrivingDTO.class) );
+        return(modelMapper.map(user.getDepartment(), DepartmentDTO.class) );
     }
-    public void updateDepartmentByUserId(int id,DepartmentCreatingDTO departmentCreatingDTO){
+    public void updateDepartmentByUserId(int id,DepartmentDTO departmentCreatingDTO){
         Optional<User> opuser =userRepository.findById(id);
         User user=opuser.get();
         user.setDepartment(modelMapper.map(departmentCreatingDTO, Department.class));
