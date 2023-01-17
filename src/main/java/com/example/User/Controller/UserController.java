@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "api/v1/user")
+@RequestMapping(value = "/api/v1/user")
 @CrossOrigin
 public class UserController {
     @Autowired
@@ -25,7 +25,8 @@ public class UserController {
     @PostMapping("/postuser")
     // add user to the database
     public UserDTO postUser(@RequestBody UserDTO userDTO){
-      return  userService.saveUser(userDTO);
+      return userService.saveUser(userDTO);
+      
     
     }
     @GetMapping("/getuserbyid/{id}")
@@ -34,10 +35,10 @@ public class UserController {
       return userService.getUserById(id);
 
     }
-    @PutMapping ("/postuserbyid/{id}")
+    @PutMapping ("/postuserbyid")
     // update details of a specific user
-    public String changeuserbyid(@PathVariable int id, @RequestBody UserDTO user){
-      userService.putUser(id, user);
+    public String changeuserbyid (@RequestBody UserDTO user){
+      userService.putUser( user);
       return "User saving id successful";
 
     }

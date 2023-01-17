@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.User.DTO.DepartmentCreatingDTO;
+import com.example.User.DTO.DepartmentRetrivingDTO;
+import com.example.User.DTO.UserCreationDTO;
 import com.example.User.DTO.UserDTO;
+import com.example.User.DTO.UserRetrievingDTO;
+import com.example.User.Entity.Department;
 import com.example.User.Entity.User;
 import com.example.User.Repository.UserRepository;
 import com.example.User.UserRepository_2.UserRepo_2;
@@ -24,16 +29,76 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private UserRepo_2 userRepo_2;
 
-    public UserDTO saveUser(UserDTO userdto){
-        userRepository.save(modelMapper.map(userdto,User.class));
-        return userdto;
+    //With DTO ManytoOne relation with department
+    public  DepartmentRetrivingDTO selectDepartmentByUserId(int id){
+        Optional<User> opuser =userRepository.findById(id);
+        User user=opuser.get();
+        return(modelMapper.map(user.getDepartment(), DepartmentRetrivingDTO.class) );
+    }
+    public void updateDepartmentByUserId(int id,DepartmentCreatingDTO departmentCreatingDTO){
+        Optional<User> opuser =userRepository.findById(id);
+        User user=opuser.get();
+        user.setDepartment(modelMapper.map(departmentCreatingDTO, Department.class));
+
+
+    }
+
+    
+    //with DTO  OnetoOne relation with attendence
+    public void saveUserwithattendence(UserCreationDTO userCreationDTO){
+        userRepository.save(modelMapper.map(userCreationDTO,User.class));
+       
+        
+    }
+    public List<UserRetrievingDTO> getUserwithattendence(){
+        List<User> list1=userRepository.findAll();
+        List<UserRetrievingDTO>list=new ArrayList<>();
+        for (User u:list1){
+            list.add(modelMapper.map(u, UserRetrievingDTO.class));
+        }
+        return list;
+        
+    }
+    public UserRetrievingDTO getUserByIdWithAttendence(int id){
+        List<User> list=userRepository.findAll();
+        for(User user: list){
+            if(user.getId()==id){
+                return modelMapper.map(user, UserRetrievingDTO.class);
+            }
+        }
+        return null;
+
+    }
+    public void putUserByIdWithAttendence(int id, UserCreationDTO userCreationDTO){
+        Optional<User> opuser= userRepository.findById(id);
+        User user=opuser.get();
+        user.setAddress(userCreationDTO.getAddress());
+        user.setAttendence(userCreationDTO.getAttendence());
+        user.setMobileNumber(userCreationDTO.getMobileNumber());
+        user.setName(userCreationDTO.getName());
+        userRepository.save(user);
+
+    } 
+
+    
+
+
+    
+    //with DTO singletable
+    public UserDTO saveUser(UserDTO userDTO){
+        userRepository.save(modelMapper.map(userDTO,User.class));
+        
+        return userDTO;
     }
     public List<UserDTO> getUser(){
         List<User> list1=userRepository.findAll();
-        return modelMapper.map(list1,new TypeToken<List<UserDTO>>(){}.getType());
+        List<UserDTO>list=new ArrayList<>();
+        for (User u:list1){
+            list.add(modelMapper.map(u, UserDTO.class));
+        }
+        return list;
+        //return modelMapper.map(list1,new TypeToken<List<UserDTO>>(){}.getType());
     }
     public UserDTO getUserById(int id){
         List<User> list=userRepository.findAll();
@@ -44,18 +109,26 @@ public class UserService {
         }
         return null;
     }
-    public void putUser(int id,UserDTO userdto){
+    public void putUser(UserDTO userdto){
         User updateuser=modelMapper.map(userdto, User.class);
-        Optional<User> userdtotoupdate=userRepository.findById(id);
-        userdtotoupdate.get().setId(updateuser.getId());
-        userdtotoupdate.get().setName(updateuser.getName());
-        userdtotoupdate.get().setAddress(updateuser.getAddress());   
+        userRepository.save(updateuser);
+        //Optional<User> userdtotoupdate=userRepository.findById(id);
+        
+       /*for(User u: userRepository.findAll()){
+            if(u.getId()==userdto.getId()){
+                u.setId(updateuser.getId());
+                u.setName(updateuser.getName());
+                u.setAddress(updateuser.getAddress());   
+            }
+        }*/
+        
     }
     public void deleteUserById(int id){
         List<User> list=userRepository.findAll();
         for (User user:list){
+            
             if(user.getId()==id){
-                user=null;
+                userRepository.delete(user);
             }
         }
     }
