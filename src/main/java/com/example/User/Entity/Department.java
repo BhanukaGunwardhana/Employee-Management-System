@@ -3,6 +3,7 @@ package com.example.User.Entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,15 +22,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column()
     private int departmentId;
     private String departmentName;
 
     @OneToMany(
         mappedBy = "department",
-        cascade = CascadeType.ALL
+        cascade = CascadeType.REMOVE
     )
-    private List<User> usreList;
+    private List<User> userList;
 
 
 }

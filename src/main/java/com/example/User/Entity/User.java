@@ -17,6 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostUpdate;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @NoArgsConstructor
@@ -26,7 +31,7 @@ import javax.persistence.OneToOne;
 public class User {
     @Id
     @GeneratedValue(
-        strategy = GenerationType.AUTO
+        strategy = GenerationType.IDENTITY
     )
     private int id;
     private String name;
@@ -44,11 +49,16 @@ public class User {
     )
     private Attendence attendence;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(
+        
+        
+    )
     @JoinColumn(
         name = "department_id",
         referencedColumnName = "departmentId"
     )
+   //@OnDelete(action = OnDeleteAction.CASCADE)
+    
 
     private Department department;
 

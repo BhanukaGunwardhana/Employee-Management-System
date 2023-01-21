@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 
 public class UserCreationDTO {
   
-    private int id;
+ 
     private String name;
     private String mobileNumber;
     private String address;
     private Attendence attendence;
-    private Department department;
+    private String departmentName;
 }

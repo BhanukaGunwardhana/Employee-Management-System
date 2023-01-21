@@ -23,7 +23,7 @@ import lombok.ToString;
 
 public class Attendence {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int attendenceId;
     private String attendencename;
 

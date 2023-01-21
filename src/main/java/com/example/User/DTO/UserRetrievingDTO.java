@@ -23,7 +23,7 @@ public class UserRetrievingDTO {
         this.name=user.getName();
         this.mobileNumber=user.getMobileNumber();
         this.departmentName=user.getDepartment().getDepartmentName();
-        this.attendenceName=user.getAttendence().getAttendence();
+        this.attendenceName=user.getAttendence().getAttendencename();
 
     }
 }

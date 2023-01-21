@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.User.DTO.UserCreationDTO;
 import com.example.User.DTO.UserRetrievingDTO;
 import com.example.User.Entity.Attendence;
 import com.example.User.Entity.Department;
@@ -19,88 +20,102 @@ public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    DepartmentRepository departmentRepository;
+    @Autowired
     ModelMapper modelMapper;
 
     //OnetoOne with attendence
-   @Test
-    public void saveUser(){
-        Attendence attendence=Attendence.builder()
-        .attendence("Good")
-        .build();
-
-
-
-        User user=User.builder()
-        .name("user3")
-        .address("addres3")
-        .mobileNumber("mobilenumber3")
-        .attendence(attendence)
-        .build();
-
-        userRepository.save(user);
-    }
-
-    @Test
-    public void putUserByIdWithAttendence(){
-
-        Attendence attendence=Attendence.builder()
-        .attendence("bad")
-        .build();
-
-
-
-        User chuser=User.builder()
-        .name("user2")
-        .address("addres2")
-        .mobileNumber("mobilenumber2")
-        .attendence(attendence)
-        .build();
-        
-
-        Optional<User> opuser= userRepository.findById(1);
-        User user=opuser.get();
-        user.setAddress(chuser.getAddress());
-        user.setAttendence(chuser.getAttendence());
-        user.setMobileNumber(chuser.getMobileNumber());
-        user.setName(chuser.getName());
-
-        userRepository.save(user);
-
-    }
+  
     @Test
     public void deleteUserById(){
         userRepository.deleteById(1);
     
     }
+    
     @Test
-    public void saveUserwithdepartmentandattendence(){
-        Attendence attendence=Attendence.builder()
-        .attendence("Good")
+    public void testsaveUSerWithDepartmentwithAttendence(){
+        Attendence att=Attendence.builder()
+        .attendencename("good")
         .build();
 
-        Department department=Department.builder()
-        .departmentName("Irrigation")
-        .build();
+        
 
 
-        User user=User.builder()
-        .name("user4")
-        .address("addres3")
-        .mobileNumber("mobilenumber3")
-        .attendence(attendence)
+        UserCreationDTO userCreationDTO=UserCreationDTO.builder()
+        .address("address5")
+        .mobileNumber("123")
+        .attendence(att)
+        .name("user5")
+        .departmentName("Account_")
         .build();
+        
+        
+        User user=new User();
+        user.setName(userCreationDTO.getName());
+        user.setAddress(userCreationDTO.getAddress());
+        user.setMobileNumber(userCreationDTO.getMobileNumber());
+        user.setAttendence(userCreationDTO.getAttendence());
+        
+        for(Department d: departmentRepository.findAll()){
+            if(d.getDepartmentName().equals(userCreationDTO.getDepartmentName())){
+                
+                user.setDepartment(d);
+            }
+            
+
+        }
+        
+        
+        userRepository.save(user);
+    }
+    @Test
+    public void testdeleteUserById(){
+        List<User> list=userRepository.findAll();
+        for (User user:list){
+            
+            if(user.getId()==1){
+                userRepository.delete(user);
+            }
+        }
+
+
+    }
+
+    @Test
+    public void testputUserByIdWithAttendenceWithDepartment(){
+        Attendence att=Attendence.builder()
+        .attendencename("updatedgood")
+        .build();
+
+        
+
+
+        UserCreationDTO userCreationDTO=UserCreationDTO.builder()
+        .address("upaddress2")
+        .mobileNumber("up123")
+        .attendence(att)
+        .name("upuser2")
+        .departmentName("Architech")
+        .build();
+        
+
+        Optional<User> opuser= userRepository.findById(1);
+        User user=opuser.get();
+        user.setAddress(userCreationDTO.getAddress());
+        user.setAttendence(userCreationDTO.getAttendence());
+        user.setMobileNumber(userCreationDTO.getMobileNumber());
+        user.setName(userCreationDTO.getName());
+        
+        for(Department d: departmentRepository.findAll()){
+            if(d.getDepartmentName().equals(userCreationDTO.getDepartmentName())){
+                
+                user.setDepartment(d);
+            }
+        }
 
         userRepository.save(user);
 
     }
-    @Test
-    public void testgetUserwithattendence(){
-        List<User> list1=userRepository.findAll();
-        List<UserRetrievingDTO>list=new ArrayList<>();
-        for (User u:list1){
-            list.add(modelMapper.map(u, UserRetrievingDTO.class));
-        }
-        System.out.println(list.toString());
 
-    }
+    
 }

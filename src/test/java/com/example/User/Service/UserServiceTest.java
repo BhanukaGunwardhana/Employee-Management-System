@@ -12,28 +12,6 @@ import com.example.User.Entity.User;
 public class UserServiceTest {
     @Autowired
     UserService userService;
-    @Test
     
-    void testSaveUserwithattendence() {
-        Attendence att=Attendence.builder()
-        .attendence("hvh")
-        .build();
-
-        Department department=Department.builder()
-        .departmentName("iabic")
-        .build();
-
-
-        UserCreationDTO userCreationDTO=UserCreationDTO.builder()
-        .id(10)
-        .address("address__")
-        .mobileNumber("iivh")
-        .attendence(att)
-        .name("usvui")
-        .department(department)
-        .build();
-        
-        userService.saveUserwithattendence(userCreationDTO);
-        
-    }
+    
 }
