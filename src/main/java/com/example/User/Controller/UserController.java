@@ -18,6 +18,10 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserService userService;
+    @GetMapping("/hello")
+    public String helloUser(){
+      return "Hello!";
+    }
     @GetMapping("/getuser")
     // get full user details
     public List<UserRetrievingDTO> getUser(){

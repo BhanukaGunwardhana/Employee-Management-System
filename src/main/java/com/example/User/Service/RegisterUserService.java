@@ -17,7 +17,7 @@ import com.example.User.Repository.RegisterUserVerificationTokenRepository;
 
 @Service
 @Transactional
-public class RegisterUserService implements UserDetailsService{
+public class RegisterUserService {
 
     @Autowired
     RegisterUserRepository registerUserRepository;
@@ -62,9 +62,5 @@ public class RegisterUserService implements UserDetailsService{
         //return token;
         
     }
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
 }

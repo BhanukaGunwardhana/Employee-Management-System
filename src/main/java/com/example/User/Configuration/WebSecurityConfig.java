@@ -18,8 +18,9 @@ public class WebSecurityConfig{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(5);
     }
+    
 
-    @Bean
+    /*  @Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.
 			cors().
@@ -31,5 +32,5 @@ public class WebSecurityConfig{
 
 		return http.build();
 		
-	}
+	}*/
 }
